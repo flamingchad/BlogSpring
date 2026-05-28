@@ -1,6 +1,7 @@
 package com.example.blogspring.mappers;
 
 import com.example.blogspring.dto.CategoryDto;
+import com.example.blogspring.dto.CreateCategoryRequest;
 import com.example.blogspring.entities.Category;
 import com.example.blogspring.entities.Post;
 import com.example.blogspring.entities.PostStatus;
@@ -16,6 +17,8 @@ public interface CategoryMapper {
 
     @Mapping(target = "postCount", source = "posts", qualifiedByName = "calculatePostCount")
     CategoryDto toDto(Category category);
+
+    Category toEntity(CreateCategoryRequest createCategoryRequest);
 
     @Named("calculatePostCount")
     default long calculatePostCount(List<Post> posts) {

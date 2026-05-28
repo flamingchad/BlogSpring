@@ -1,13 +1,15 @@
 package com.example.blogspring.controllers;
 
 import com.example.blogspring.dto.CategoryDto;
+import com.example.blogspring.dto.CreateCategoryRequest;
+import com.example.blogspring.entities.Category;
 import com.example.blogspring.mappers.CategoryMapper;
 import com.example.blogspring.services.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +27,13 @@ public class CategoryController {
                 .stream()
                 .map(categoryMapper::toDto)
                 .toList());
+    }
+
+    @PostMapping
+    public ResponseEntity<CategoryDto> createCategory(@Valid @RequestBody CreateCategoryRequest createCategoryRequest) {
+        Category categoryToCreate = categoryMapper.toEntity(createCategoryRequest);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(categoryMapper.toDto(categoryService.createCategory(categoryToCreate)));
     }
 }
