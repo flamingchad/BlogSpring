@@ -1,9 +1,6 @@
 package com.example.blogspring.repositories;
 
-import com.example.blogspring.entities.Category;
-import com.example.blogspring.entities.Post;
-import com.example.blogspring.entities.PostStatus;
-import com.example.blogspring.entities.Tag;
+import com.example.blogspring.entities.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +13,5 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
     List<Post> findAllByStatusAndCategory(PostStatus status, Category category);
     List<Post> findAllByStatusAndTagsContaining(PostStatus status, Tag tag);
     List<Post> findAllByStatus(PostStatus status);
+    List<Post> findAllByAuthorAndStatus(User author, PostStatus status);
 }
