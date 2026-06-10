@@ -1,6 +1,6 @@
 package com.example.blogspring.mappers;
 
-import com.example.blogspring.dto.TagResponse;
+import com.example.blogspring.dto.TagDto;
 import com.example.blogspring.entities.Post;
 import com.example.blogspring.entities.PostStatus;
 import com.example.blogspring.entities.Tag;
@@ -14,7 +14,7 @@ import java.util.Set;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TagMapper {
     @Mapping(target = "postCount", source ="posts", qualifiedByName = "calculatePostCount")
-    TagResponse toTagResponse(Tag tag);
+    TagDto toTagResponse(Tag tag);
 
     @Named("calculatePostCount")
     default Integer calculatePostCount(Set<Post> posts) {

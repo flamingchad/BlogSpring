@@ -1,7 +1,7 @@
 package com.example.blogspring.controllers;
 
 import com.example.blogspring.dto.CreateTagsRequest;
-import com.example.blogspring.dto.TagResponse;
+import com.example.blogspring.dto.TagDto;
 import com.example.blogspring.entities.Tag;
 import com.example.blogspring.mappers.TagMapper;
 import com.example.blogspring.services.TagService;
@@ -21,12 +21,12 @@ public class TagController {
     private final TagMapper tagMapper;
 
     @GetMapping
-    public ResponseEntity<List<TagResponse>> getAllTags() {
+    public ResponseEntity<List<TagDto>> getAllTags() {
         return ResponseEntity.ok(tagService.getTags().stream().map(tagMapper::toTagResponse).toList());
     }
 
     @PostMapping
-    public ResponseEntity<List<TagResponse>> createTags(@RequestBody CreateTagsRequest createTagsRequest) {
+    public ResponseEntity<List<TagDto>> createTags(@RequestBody CreateTagsRequest createTagsRequest) {
         List<Tag> savedTags = tagService.createTags(createTagsRequest.getNames());
 
         return ResponseEntity.ok(savedTags.stream().map(tagMapper::toTagResponse).toList());

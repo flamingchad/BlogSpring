@@ -2,6 +2,7 @@ package com.example.blogspring.services;
 
 import com.example.blogspring.entities.Category;
 import com.example.blogspring.repositories.CategoryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,11 @@ public class CategoryService {
             }
             categoryRepository.deleteById(id);
         }
+    }
+
+    public Category getCategoryById(UUID id) {
+        return categoryRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Category not found with id: " + id)
+        );
     }
 }
